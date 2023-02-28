@@ -1,13 +1,17 @@
 {
-    "manifest_version": 2,
-    "name": "Mi extensión",
+    "manifest_version": 3,
+    "name": "Readify",
     "version": "1.0",
-    "description": "Extension para el aprendizaje por web",
+    "description": "Extension para aprendizaje",
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "scripting"
     ],
-    "browser_action": {
-        "default_popup": "popup.html",
-        "default_icon": "icon.png"
+    "action": {
+        "default_title": "Readify The Page",
+        "default_icon": "img/cerebro.png"
+    },
+    "background": {
+        "service_worker": "options.js"
     }
 }
