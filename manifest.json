@@ -1,17 +1,19 @@
 {
-    "manifest_version": 3,
-    "name": "Readify",
-    "version": "1.0",
-    "description": "Extension para aprendizaje",
-    "permissions": [
-        "activeTab",
-        "scripting"
-    ],
-    "action": {
-        "default_title": "Readify The Page",
-        "default_icon": "img/cerebro.png"
-    },
-    "background": {
-        "service_worker": "options.js"
-    }
+  "manifest_version": 3,
+  "name": "Readify",
+  "version": "1.0",
+  "description": "Extension para aprendizaje",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "action": {
+    "default_title": "Readify The Page",
+    "default_icon": "img/cerebro.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "options.js"
+  }
 }
