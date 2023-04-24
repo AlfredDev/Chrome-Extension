@@ -5,7 +5,7 @@
       existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
     else
       existingNode.parentNode.appendChild(newNode);
-  };
+  }
 
   const HalfBold = (parentElement) => {
     for (var i = 0; parentElement.childNodes[i] != undefined; i++) {
@@ -31,9 +31,12 @@
 
             const bold = document.createElement('b');
             bold.innerHTML = word.slice(0, length);
+            bold.style.fontSize = "larger"; //  para aumentar el tamaño de letra
             insertAfter(bold, recentNode);
             newNodeCount++;
             recentNode = bold;
+
+
 
             if (word.length == 1) return;
             var textNode = document.createTextNode(word.slice(length));
@@ -71,7 +74,5 @@
       }
     }
   };
-
   processDocumentBody(document);
-
 })();
