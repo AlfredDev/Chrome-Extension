@@ -6,7 +6,8 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "clipboardWrite"
   ],
   "action": {
     "default_title": "Readify The Page",
@@ -14,6 +15,16 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "service_worker": "options.js"
-  }
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
 }

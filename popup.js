@@ -2,7 +2,7 @@ let fastBtn = document.getElementById('fast');
 let revertBtn = document.getElementById('restaurar');
 
 // al abrir el popup, lee el estado del botón del almacenamiento local y establece fastBtn.disabled en consecuencia
-chrome.storage.local.get('isFastEnabled', function(data) {
+chrome.storage.local.get('isFastEnabled', function (data) {
   if (data.isFastEnabled) {
     fastBtn.disabled = true;
   } else {
@@ -18,7 +18,7 @@ fastBtn.addEventListener('click', async () => {
   });
 
   // al hacer clic en el botón "Fast", guarda el estado del botón en el almacenamiento local
-  chrome.storage.local.set({isFastEnabled: true});
+  chrome.storage.local.set({ isFastEnabled: true });
   fastBtn.disabled = true;
 });
 
@@ -30,6 +30,7 @@ revertBtn.addEventListener('click', async () => {
   });
 
   // al hacer clic en el botón "Revertir", guarda el estado del botón en el almacenamiento local
-  chrome.storage.local.set({isFastEnabled: false});
+  chrome.storage.local.set({ isFastEnabled: false });
   fastBtn.disabled = false;
 });
+
