@@ -1,32 +1,68 @@
-document.addEventListener("mouseup", function (event) {
-    var selectedText = window.getSelection().toString().trim();
-    if (selectedText !== "" && selectedText.length <= 20 && selectedText.length >= 4) {
-        var button = document.createElement("button");
-        button.classList.add('dic')
-        button.innerHTML = '| | |'
-        button.id = "definition-button";
-        button.style.display = "block";
-        button.style.position = "fixed";
-        button.style.padding = "8px";
-        button.style.backgroundImage = "url('/dic.png')";
-        button.style.borderRadius = "15px";
-        button.style.backgroundSize = "cover";
-        button.style.backgroundColor = "black"
-        button.style.color = 'white';
-        button.style.zIndex = '9999';
-        button.style.top = (event.clientY + 10) + "px";
-        button.style.left = (event.clientX + 10) + "px";
-        document.body.appendChild(button);
-        button.addEventListener("click", function () {
-            // Aquí puedes agregar la lógica para mostrar la definición de la palabra
-            alert("Definición de " + selectedText);
-            button.remove();
-        });
-        document.addEventListener("mouseup", function (event) {
-            var unselectedText = window.getSelection().toString().trim();
-            if (unselectedText === "") {
-                button.remove();
-            }
-        });
+// function getSelectedText() {
+//     if (window.getSelection) {
+//       return window.getSelection().toString();
+//     } else if (document.selection && document.selection.type != 'Control') {
+//       return document.selection.createRange().text;
+//     }
+//     return '';
+//   }
+
+//   function highlightSelection() {
+//     const selectedText = getSelectedText();
+//     const range = window.getSelection().getRangeAt(0);
+//     const span = document.createElement('span');
+//     span.style.backgroundColor = 'yellow';
+//     range.surroundContents(span);
+//   }
+
+//   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+//     if (request.action === 'highlight') {
+//       highlightSelection();
+//     }
+//   });
+function createButton() {
+    const button = document.createElement('button');
+    button.className = 'highlight-button';
+    button.innerHTML = '🧹';
+    document.body.appendChild(button);
+    button.addEventListener('click', highlightSelection);
+}
+
+function removeButton() {
+    const button = document.querySelector('.highlight-button');
+    if (button) {
+        button.remove();
+    }
+}
+
+function getSelectedText() {
+    if (window.getSelection) {
+        return window.getSelection().toString();
+    } else if (document.selection && document.selection.type != 'Control') {
+        return document.selection.createRange().text;
+    }
+    return '';
+}
+
+function highlightSelection() {
+    const selectedText = getSelectedText();
+    if (selectedText) {
+        const range = window.getSelection().getRangeAt(0);
+        const span = document.createElement('span');
+        span.style.backgroundColor = 'yellow';
+        range.surroundContents(span);
+        removeButton();
+    }
+}
+
+document.addEventListener('mouseup', function (event) {
+    const selectedText = getSelectedText();
+    if (selectedText) {
+        createButton();
+        const button = document.querySelector('.highlight-button');
+        button.style.top = event.pageY + 'px';
+        button.style.left = event.pageX + 'px';
+    } else {
+        removeButton();
     }
 });

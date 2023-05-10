@@ -5,6 +5,7 @@
   "description": "Extension para aprendizaje",
   "permissions": [
     "activeTab",
+    "contextMenus",
     "scripting",
     "storage",
     "clipboardWrite"
@@ -20,11 +21,14 @@
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "*://*/*"
       ],
       "js": [
         "content.js"
-      ]
+      ],
+      "css": ["/styles/buton.css"]
+
     }
   ]
+ 
 }
