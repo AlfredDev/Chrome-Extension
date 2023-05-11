@@ -39,3 +39,17 @@ revertBtn.addEventListener('click', async () => {
 //     chrome.tabs.sendMessage(tabs[0].id, { action: 'highlight' });
 //   });
 // };
+
+const player = document.getElementById('player');
+const toggleButton = document.getElementById('toggle');
+player.style.display = 'none';
+toggleButton.addEventListener('click', () => {
+  if (player.style.display === 'none') {
+    player.style.display = 'block';
+    toggleButton.textContent = 'Quitar música';
+  } else {
+    player.style.display = 'none';
+    toggleButton.textContent = 'Reproducir música';
+  }
+});
+
