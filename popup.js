@@ -52,4 +52,3 @@ toggleButton.addEventListener('click', () => {
     toggleButton.textContent = 'Reproducir música';
   }
 });
-
