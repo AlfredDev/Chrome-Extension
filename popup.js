@@ -52,3 +52,12 @@ toggleButton.addEventListener('click', () => {
     toggleButton.textContent = 'Reproducir música';
   }
 });
+
+const cambiarfondo = document.getElementById('paleta');
+cambiarfondo.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/paleta.js']
+  });
+});

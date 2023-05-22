@@ -8,7 +8,8 @@
     "contextMenus",
     "scripting",
     "storage",
-    "clipboardWrite"
+    "clipboardWrite",
+    "tabs"
   ],
   "action": {
     "default_title": "Readify The Page",
