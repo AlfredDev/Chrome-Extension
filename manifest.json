@@ -26,9 +26,9 @@
       "js": [
         "content.js"
       ],
-      "css": ["/styles/buton.css"]
-
+      "css": [
+        "/styles/buton.css"
+      ]
     }
   ]
- 
 }
