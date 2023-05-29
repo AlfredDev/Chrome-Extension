@@ -74,5 +74,5 @@
       }
     }
   };
-  processDocumentBody(document);
+  processDocumentBody(document);  
 })();
