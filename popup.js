@@ -40,71 +40,39 @@ revertBtn.addEventListener('click', async () => {
 //   });
 // };
 
-
-
-// Declara la variable utterance fuera de la función play()
-var utterance;
-
-document.addEventListener('DOMContentLoaded', function() {
-  var playButton = document.getElementById('playButton');
-  var pauseButton = document.getElementById('pauseButton');
-  var stopButton = document.getElementById('stopButton');
-
-  playButton.addEventListener('click', play);
-  pauseButton.addEventListener('click', pause);
-  stopButton.addEventListener('click', stop);
-
-  function play() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { command: 'play' });
-    });
-  }
-
-  function pause() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { command: 'pause' });
-    });
-  }
-
-  function stop() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { command: 'stop' });
-    });
+const player = document.getElementById('player');
+const toggleButton = document.getElementById('toggle');
+player.style.display = 'none';
+toggleButton.addEventListener('click', () => {
+  if (player.style.display === 'none') {
+    player.style.display = 'block';
+    toggleButton.textContent = 'Quitar música';
+  } else {
+    player.style.display = 'none';
+    toggleButton.textContent = 'Reproducir música';
   }
 });
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.command === 'play') {
-    var selectedText = window.getSelection().toString();
-    if (selectedText.length > 0) {
-      // Verifica si utterance ya existe
-      if (utterance) {
-        utterance.text = selectedText;
-      } else {
-        utterance = new SpeechSynthesisUtterance(selectedText);
-      }
-      speak();
-      sendResponse({ result: 'success' });
-    } else {
-      sendResponse({ result: 'error', message: 'No se ha seleccionado texto.' });
-    }
-  } else if (request.command === 'pause') {
-    pause();
-    sendResponse({ result: 'success' });
-  } else if (request.command === 'stop') {
-    stop();
-    sendResponse({ result: 'success' });
-  }
+const cambiarfondo = document.getElementById('paleta');
+cambiarfondo.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/paleta.js']
+  });
 });
 
-function speak() {
-  window.speechSynthesis.speak(utterance);
-}
+document.getElementById('m').addEventListener('click', function() {
+  var reproductor = document.getElementById('reproductor');
+  reproductor.play();
+});
 
-function pause() {
-  window.speechSynthesis.pause();
-}
-
-function stop() {
-  window.speechSynthesis.cancel();
-}
+/*
+const btnPlay = document.getElementById('m');
+btnPlay.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/musica.js']
+  });
+});*/
