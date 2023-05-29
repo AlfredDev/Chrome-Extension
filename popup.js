@@ -42,3 +42,69 @@ revertBtn.addEventListener('click', async () => {
 
 
 
+// Declara la variable utterance fuera de la función play()
+var utterance;
+
+document.addEventListener('DOMContentLoaded', function() {
+  var playButton = document.getElementById('playButton');
+  var pauseButton = document.getElementById('pauseButton');
+  var stopButton = document.getElementById('stopButton');
+
+  playButton.addEventListener('click', play);
+  pauseButton.addEventListener('click', pause);
+  stopButton.addEventListener('click', stop);
+
+  function play() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { command: 'play' });
+    });
+  }
+
+  function pause() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { command: 'pause' });
+    });
+  }
+
+  function stop() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { command: 'stop' });
+    });
+  }
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.command === 'play') {
+    var selectedText = window.getSelection().toString();
+    if (selectedText.length > 0) {
+      // Verifica si utterance ya existe
+      if (utterance) {
+        utterance.text = selectedText;
+      } else {
+        utterance = new SpeechSynthesisUtterance(selectedText);
+      }
+      speak();
+      sendResponse({ result: 'success' });
+    } else {
+      sendResponse({ result: 'error', message: 'No se ha seleccionado texto.' });
+    }
+  } else if (request.command === 'pause') {
+    pause();
+    sendResponse({ result: 'success' });
+  } else if (request.command === 'stop') {
+    stop();
+    sendResponse({ result: 'success' });
+  }
+});
+
+function speak() {
+  window.speechSynthesis.speak(utterance);
+}
+
+function pause() {
+  window.speechSynthesis.pause();
+}
+
+function stop() {
+  window.speechSynthesis.cancel();
+}
