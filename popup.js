@@ -97,6 +97,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 });
 
+const cambiarFuente = document.getElementById('aplicar');
+cambiarFuente.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/fuente.js']
+  }); 
+});
+
 function speak() {
   window.speechSynthesis.speak(utterance);
 }
