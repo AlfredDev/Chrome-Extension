@@ -63,7 +63,7 @@ function getSelectedText() {
 function highlightSelection(color) {
   const selectedText = getSelectedText();
   if (selectedText) {
-    chrome.storage.local.set({ palabras: selectedText });
+    chrome.storage.local.set({ "palabras": selectedText });
     const range = window.getSelection().getRangeAt(0);
     const span = document.createElement("span");
     span.style.backgroundColor = color;
@@ -94,31 +94,96 @@ document.addEventListener("keydown", function (event) {
 });
 
 function openNotePopup() {
-  //var scriptElement = document.createElement("script");
-  //scriptElement.src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js";
-  //document.head.appendChild(scriptElement);
   var popup = document.createElement("div");
+  var bar = document.createElement("div");
+  var footer = document.createElement("div");
+  var contenido = document.createElement("div");
   var txt = document.createElement("textarea");
   var creaPdf = document.createElement("button");
+  var guardar = document.createElement("button");
+  var cerrar = document.createElement("button");
   creaPdf.textContent = "Exportar pdf";
+  guardar.textContent = "Guardar";
+  cerrar.textContent = "X";
+
   popup.style.position = "fixed";
   popup.style.top = "30%";
   popup.style.left = "90%";
   popup.style.transform = "translate(-50%, -50%)";
-  popup.style.backgroundColor = "white";
+  popup.style.backgroundColor = "#000000";
   popup.style.padding = "10px";
-  popup.style.border = "1px solid black";
+  popup.style.border = "1px solid #FDFDFD";
   popup.style.width = "250px";
-  popup.style.height = "300px";
+  popup.style.height = "310px";
   popup.style.display = "flex";
   popup.style.flexDirection = "column";
   popup.style.alignItems = "center";
 
+  bar.style.width = "250px";
+  bar.style.height = "32px";
+  bar.style.display = "flex";
+  bar.style.flexDirection = "row-reverse";
+
+  contenido.style.width = "250px";
+  contenido.style.height = "250px";
+  contenido.style.display = "flex";
+  contenido.style.backgroundColor = "#272727";
+
+
+  footer.style.width = "250px";
+  footer.style.height = "32";
+  footer.style.display = "flex";
+  footer.style.flexDirection = "row";
+  footer.style.justifyContent = "center";
+
+  txt.style.backgroundColor = "#272727";
+  txt.style.color = "#FDFDFD";
   txt.style.width = "250px";
   txt.style.height = "250px";
   txt.style.resize = "none";
 
-  creaPdf.style.marginBottom = "10px";
+
+  guardar.style.backgroundColor = "#C4FE76";
+  guardar.style.color = "#000000";
+  guardar.style.width = "70px";
+  guardar.style.height = "25px";
+  guardar.style.alignContent = "center";
+  guardar.style.marginTop ="10px";
+  guardar.style.marginRight = "10px";
+  guardar.style.display = "flex";
+  guardar.style.flexDirection = "row";
+  guardar.style.alignContent = "center";
+  guardar.style.fontFamily = "Roboto, sans-serif";
+  guardar.style.fontSize = "15px";
+  guardar.style.padding = "none";
+
+  creaPdf.style.backgroundColor = "#C4FE76";
+  creaPdf.style.color = "#000000";
+  creaPdf.style.width = "100px";
+  creaPdf.style.height = "25px";
+  creaPdf.style.alignContent = "center";
+  creaPdf.style.marginTop = "10px";
+  creaPdf.style.marginLeft = "10px";
+  creaPdf.style.display = "flex";
+  creaPdf.style.flexDirection = "row";
+  creaPdf.style.alignContent = "center";
+  creaPdf.style.fontFamily = "Roboto, sans-serif";
+  creaPdf.style.fontSize = "15px";
+  creaPdf.style.padding = "none";
+
+
+  cerrar.style.backgroundColor = "red";
+  cerrar.style.color = "#FDFDFD";
+  cerrar.style.width = "15";
+  cerrar.style.height = "25px";
+  cerrar.style.alignContent = "center";
+  cerrar.style.marginBottom = "10px";
+  cerrar.style.display = "flex";
+  cerrar.style.flexDirection = "row";
+  cerrar.style.alignContent = "center";
+  cerrar.style.fontFamily = "Roboto, sans-serif";
+  cerrar.style.fontSize = "15px";
+  cerrar.style.padding = "none";
 
   chrome.storage.local.get(["palabras"], function (resultado) {
     if (resultado.palabras) {
@@ -126,59 +191,71 @@ function openNotePopup() {
     }
   });
 
+  guardar.addEventListener("click", () => {
+    const content = txt.value;
+    chrome.storage.local.set({ "palabras": content });
+  });
+
   creaPdf.addEventListener("click", () => {
-    /*
-  const content = txt.value;
-  const printWindow = window.open('', '', 'width=800,height=600');
-  printWindow.document.write(`<html><head><title>PDF</title></head><body>${content}</body></html>`);
-  printWindow.document.addEventListener('load', function() {
-  printWindow.print();
-  });*/
-    // 1. Send a message to the service worker requesting the user's data
-    chrome.runtime.sendMessage(txt.value, (response) => {
-      // 3. Got an asynchronous response with the data from the service worker
-      console.log("Respuesta del background", response);
-      //initializeUI(response);
+    const content = txt.value;
+    const printWindow = window.open("", "", "width=800,height=600");
+    printWindow.document.write(
+      `<html><head><title>PDF</title></head><body>${content}</body></html>`
+    );
+    printWindow.document.addEventListener("load", function () {
+      printWindow.print();
     });
   });
 
-  popup.appendChild(creaPdf);
-  popup.appendChild(txt);
+  cerrar.addEventListener("click", () => {
+    popup.remove();
+  });
+
+  bar.appendChild(cerrar);
+  contenido.appendChild(txt);
+  footer.appendChild(guardar);
+  footer.appendChild(creaPdf);
+
+  popup.appendChild(bar);
+  popup.appendChild(contenido);
+  popup.appendChild(footer);
+
   document.body.appendChild(popup);
 }
 
-
-
 // Recibe mensajes de la extensión y realiza las acciones correspondientes
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.command === 'play') {
-        var selectedText = window.getSelection().toString();
-        if (selectedText.length > 0) {
-            speak(selectedText);
-            sendResponse({ result: 'success' });
-        } else {
-            sendResponse({ result: 'error', message: 'No se ha seleccionado texto.' });
-        }
-    } else if (request.command === 'pause') {
-        pause();
-        sendResponse({ result: 'success' });
-    } else if (request.command === 'stop') {
-        pause();
-        stop();
-        sendResponse({ result: 'success' });
+  if (request.command === "play") {
+    var selectedText = window.getSelection().toString();
+    if (selectedText.length > 0) {
+      speak(selectedText);
+      sendResponse({ result: "success" });
+    } else {
+      sendResponse({
+        result: "error",
+        message: "No se ha seleccionado texto.",
+      });
     }
+  } else if (request.command === "pause") {
+    pause();
+    sendResponse({ result: "success" });
+  } else if (request.command === "stop") {
+    pause();
+    stop();
+    sendResponse({ result: "success" });
+  }
 });
 
 // Utiliza la API de SpeechSynthesis para leer el texto en voz alta
 function speak(text) {
-    var utterance = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(utterance);
+  var utterance = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(utterance);
 }
 
 function pause() {
-    window.speechSynthesis.pause();
+  window.speechSynthesis.pause();
 }
 
 function stop() {
-    window.speechSynthesis.cancel();
+  window.speechSynthesis.cancel();
 }
