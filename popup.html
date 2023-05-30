@@ -12,76 +12,33 @@
     />
   </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="/styles/popup.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-</head>
-
   <body>
     <div class="content">
       <div class="titulo">
         <h3>ReadFly</h3>
       </div>
-      <div class="options">
-        <button id="fast">Modifica la pagina actual</button>
-        <button id="restaurar">Restaurar página</button>
-        <div class="speack">
-          <button id="playButton">Reproducir</button>
-          <button id="pauseButton">Pausar</button>
-          <button id="stopButton">Detener</button>
-        </div>
-        <!-- <button id="highlight">Marcar Texto</button> -->
-      </div>
-      <div id="player">
-        <iframe
-          src="https://open.spotify.com/embed/playlist/05OkqemhVmD27zXfdnyNsy"
-          width="300"
-          height="80"
-          frameborder="0"
-          allowtransparency="true"
-          allow="encrypted-media"
-        ></iframe>
-      </div>
-      <button id="toggle">Reproducir música</button>
-      <button id="paleta">Cambiar Fondo</button>
-      <label>Selecciona un fuente: </label>
-      <select id="fontSelect">
-        <option value="Times New Roman, serif">Times New Roman</option>
-        <option value="Arial, sans-serif">Arial</option>
-        <option value="Courier New, monospace">Courier New</option>
-        <!-- Agrega más opciones de fuente según tus preferencias -->
-      </select>
-      <button id="aplicar">Aplicar</button>
-<body>
-  <div class="content">
-    <div class="titulo">
-      <h3>ReadFly</h3>
-    </div>
-    <button class="button-25" id="fast">OptiLectura</button>
-    <button class="button-25" id="restaurar">Restaurar página</button>
+      <button class="button-25" id="fast">OptiLectura</button>
+      <button class="button-25" id="restaurar">Restaurar página</button>
 
-
-    <div class="voz">
-      <button class="button-25" id="playButton">Reproducir</button>
-      <button class="button-25" id="pauseButton">Pausar</button>
-      <button class="button-25" id="stopButton">Detener</button>
+      <div class="voz">
+        <button class="button-25" id="playButton">Reproducir</button>
+        <button class="button-25" id="pauseButton">Pausar</button>
+        <button class="button-25" id="stopButton">Detener</button>
+      </div>
+      <!-- <button id="highlight">Marcar Texto</button> -->
+      <button class="button-31" id="tema_calido">Tema calido</button>
     </div>
+
+    <button class="button-31" id="paleta">Tema oscuro</button>
+    <label class="label">Selecciona una fuente: </label>
+    <select id="fontSelect">
+      <option value="Times New Roman, serif">Times New Roman</option>
+      <option value="Arial, sans-serif">Arial</option>
+      <option value="Courier New, monospace">Courier New</option>
+      <!-- Agrega más opciones de fuente -->
+    </select>
+    <button id="aplicar">Aplicar</button>
+
     <script src="popup.js"></script>
   </body>
-    <!-- <button id="highlight">Marcar Texto</button> -->
-    <button  class="button-31" id="tema_calido">Tema calido</button>
-
-  </div>
-
-  <button class="button-31"  id="paleta">Tema oscuro</button>
-
-  <script src="popup.js"></script>
-
-</body>
-
 </html>
-
