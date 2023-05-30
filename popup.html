@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles/popup.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script-->
-  </head>
 
-  <body>
-    <div class="content">
-      <div class="titulo">
-        <h3>ReadFly</h3>
-      </div>
-      <div class="options">
-        <button id="fast">Modifica la pagina actual</button>
-        <button id="restaurar">Restaurar página</button>
-        <div class="speack">
-          <button id="playButton">Reproducir</button>
-          <button id="pauseButton">Pausar</button>
-          <button id="stopButton">Detener</button>
-        </div>
-        <!-- <button id="highlight">Marcar Texto</button> -->
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="/styles/popup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
 
-      <button id="paleta">Cambiar Fondo</button>
-      <br />
-      <button id="pdf">Exportar pdf</button>
+<body>
+  <div class="content">
+    <div class="titulo">
+      <h3>ReadFly</h3>
     </div>
+    <button class="button-25" id="fast">OptiLectura</button>
+    <button class="button-25" id="restaurar">Restaurar página</button>
 
-    <script src="popup.js"></script>
-  </body>
+
+    <div class="voz">
+      <button class="button-25" id="playButton">Reproducir</button>
+      <button class="button-25" id="pauseButton">Pausar</button>
+      <button class="button-25" id="stopButton">Detener</button>
+    </div>
+    <!-- <button id="highlight">Marcar Texto</button> -->
+    <button  class="button-31" id="pdf">Exportar pdf</button>
+
+  </div>
+
+  <button id="paleta">Cambiar Fondo</button>
+
+  <script src="popup.js"></script>
+
+</body>
+
 </html>
