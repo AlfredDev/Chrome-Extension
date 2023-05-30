@@ -4,10 +4,10 @@
   //const fontSelect = document.getElementById;
   //const selectedFont = fontSelect.value;
   
-  body.style.fontFamily = "Times New Roman, serif";
+  body.style.fontFamily = "Arial, sans-serif";
 
   const elements = document.querySelectorAll('h1, h2, h3, p');
   elements.forEach((element) => {
-    element.style.fontFamily = "Times New Roman, serif";
+    element.style.fontFamily = "Arial, sans-serif";
   });
 })();

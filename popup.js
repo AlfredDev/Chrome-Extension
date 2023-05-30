@@ -135,12 +135,30 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
-const cambiarFuente = document.getElementById('aplicar');
-cambiarFuente.addEventListener('click', async () => {
+const timesRoman = document.getElementById('times');
+timesRoman.addEventListener('click', async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     files: ['/Scripts/fuente.js']
+  }); 
+});
+
+const arial = document.getElementById('arial');
+arial.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/arial.js']
+  }); 
+});
+
+const courier = document.getElementById('courier');
+courier.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/courier.js']
   }); 
 });
 
