@@ -44,12 +44,21 @@ revertBtn.addEventListener("click", async () => {
 //   });
 // };
 
-const cambiarfondo = document.getElementById("paleta");
-cambiarfondo.addEventListener("click", async () => {
+const temaOscuro = document.getElementById("paleta");
+temaOscuro.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     files: ["/Scripts/paleta.js"],
+  });
+});
+
+const temaCalido = document.getElementById("tema_calido");
+temaCalido.addEventListener("click", async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ["/Scripts/tema_calido.js"],
   });
 });
 /*
