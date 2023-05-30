@@ -40,7 +40,29 @@ revertBtn.addEventListener('click', async () => {
 //   });
 // };
 
+const cambiarfondo = document.getElementById('paleta');
+cambiarfondo.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/paleta.js']
+  });
+});
 
+document.getElementById('m').addEventListener('click', function() {
+  var reproductor = document.getElementById('reproductor');
+  reproductor.play();
+});
+
+/*
+const btnPlay = document.getElementById('m');
+btnPlay.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['/Scripts/musica.js']
+  });
+});*/
 
 // Declara la variable utterance fuera de la función play()
 var utterance;
